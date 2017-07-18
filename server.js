@@ -37,7 +37,7 @@ app.get('/citeis', (res, req, next) => {
   });
 });
 
-app.get('/cities/:id', (req, res) => {
+app.get('/cities/id', (req, res) => {
   fs.readFile(citiesPath, (err, data) => {
     if (err) {
       res.status(500);
