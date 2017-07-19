@@ -1,6 +1,6 @@
 'use strict';
 
-const bodyParser = require('body-parser');
+const bodyParse = require('body-parser');
 const express = require('express');
 const fs = require('fs');
 const morgan = require('morgan');
@@ -39,14 +39,15 @@ app.get('/cities/:id', (req, res) => {
 
     if (id < 0 || id >= cities.length || Number.isNaN(id)) {
       // BONUS
-      res.sendStatus(404);
+      res.sendStatus(400);
+      // res.send(err.message);
     }
 
     res.send(cities[id]);
   });
 });
 
-app.post('/cities', (res, req, next) => {
+app.post('/cities', (req, res, next) => {
   const name = req.body.name;
   const state = req.body.state;
 
@@ -54,7 +55,7 @@ app.post('/cities', (res, req, next) => {
     res.sendStatus(400);
   }
 
-  let newCity = { "name": name, "state": state };
+  let newCity = {"name": name, "state": state };
 
   fs.readFile(citiesPath, 'utf8', (err, data) => {
     if (err) {
@@ -65,14 +66,14 @@ app.post('/cities', (res, req, next) => {
     let cities = JSON.parse(data);
 
     cities.push(newCity);
-    citiesJSON = JSON.stringify(cities);
+    const citiesJSON = JSON.stringify(cities);
 
     fs.writeFile(citiesPath, citiesJSON, (err) => {
       if (err) {
         res.status(500);
-        res.send(err.message);
+        next(err);
       }
-      res.set('Content-Type', "text/plain");
+
       res.send(newCity);
     })
   });
