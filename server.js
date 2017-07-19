@@ -9,14 +9,15 @@ const path = require('path');
 const app = express();
 const citiesPath = path.join(__dirname, 'cities.json');
 
-app.use(bodyParser.json());
+app.use(bodyParse.json());
 app.use(morgan('short'));
 
-app.get('/citeis', (req, res, next) => {
+app.get('/cities', (req, res, next) => {
   fs.readFile(citiesPath, 'utf8', (err, data) => {
     if (err) {
+      console.error(err.stack);
       res.status(500);
-      next(err);
+      res.send(err.message);
     }
 
     const cities = JSON.parse(data);
@@ -25,11 +26,12 @@ app.get('/citeis', (req, res, next) => {
   });
 });
 
-app.get('/cities/id', (req, res) => {
+app.get('/cities/:id', (req, res) => {
   fs.readFile(citiesPath, (err, data) => {
     if (err) {
+      console.error(err.stack);
       res.status(500);
-      next(err);
+      res.send(err.message);
     }
 
     const id = Number.parseInt(req.params.id);
@@ -37,6 +39,7 @@ app.get('/cities/id', (req, res) => {
 
     if (id < 0 || id >= cities.length || Number.isNaN(id)) {
       // BONUS
+      res.sendStatus(404);
     }
 
     res.send(cities[id]);
@@ -48,31 +51,28 @@ app.post('/cities', (res, req, next) => {
   const state = req.body.state;
 
   if (!name || !state) {
-    const err = new Error('Bad Request');
-
-    res.status(400);
-    next(err);
+    res.sendStatus(400);
   }
 
-  let newCity = { name, state };
+  let newCity = { "name": name, "state": state };
 
   fs.readFile(citiesPath, 'utf8', (err, data) => {
     if (err) {
       res.status(500);
-      next(err);
+      res.send(err.message);
     }
 
     let cities = JSON.parse(data);
 
     cities.push(newCity);
-    cities = JSON.stringify(cities);
+    citiesJSON = JSON.stringify(cities);
 
-    fs.writeFile(citiesPath, cities, (err) => {
+    fs.writeFile(citiesPath, citiesJSON, (err) => {
       if (err) {
         res.status(500);
-        next(err);
+        res.send(err.message);
       }
-
+      res.set('Content-Type', "text/plain");
       res.send(newCity);
     })
   });
