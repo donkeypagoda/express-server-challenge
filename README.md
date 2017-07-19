@@ -21,5 +21,5 @@ npm start
 ## Help: reset your cities.json file with this command
 
 ```
-echo [{"name":"New York","state":"New York"},{"name":"Seattle","state":"Washington"},{"name":"San Francisco","state":"California"},{"name":"Chicago","state":"Illinois"},{"name":"Tacoma","state":"Washington"},{"name":"Spokane","state":"Washington"}] >> 'cities.json'
+echo '[{"name":"New York","state":"New York"},{"name":"Seattle","state":"Washington"},{"name":"San Francisco","state":"California"},{"name":"Chicago","state":"Illinois"},{"name":"Tacoma","state":"Washington"},{"name":"Spokane","state":"Washington"}]' > 'cities.json'
 ```
