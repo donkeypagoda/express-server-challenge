@@ -32,7 +32,7 @@ app.get('/cities/id', (req, res) => {
       next(err);
     }
 
-    const id = req.params.id;
+    const id = Number.parseInt(req.params.id);
     const cities = JSON.parse(data);
 
     if (id < 0 || id >= cities.length || Number.isNaN(id)) {
