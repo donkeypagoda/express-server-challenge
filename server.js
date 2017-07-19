@@ -12,7 +12,7 @@ const citiesPath = path.join(__dirname, 'cities.json');
 app.use(bodyParser.json());
 app.use(morgan('short'));
 
-app.get('/citeis', (res, req, next) => {
+app.get('/citeis', (req, res, next) => {
   fs.readFile(citiesPath, 'utf8', (err, data) => {
     if (err) {
       res.status(500);
@@ -36,17 +36,14 @@ app.get('/cities/id', (req, res) => {
     const cities = JSON.parse(data);
 
     if (id < 0 || id >= cities.length || Number.isNaN(id)) {
-      const err = new Error('Bad Request');
-
-      res.status(400);
-      next(err);
+      // BONUS
     }
 
     res.send(cities[id]);
   });
 });
 
-app.post('/cities', (req, res, next) => {
+app.post('/cities', (res, req, next) => {
   const name = req.body.name;
   const state = req.body.state;
 
