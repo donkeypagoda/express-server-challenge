@@ -1,6 +1,4 @@
-// TODO:
-// 1. Disable "x-powered-by"
-// 2. The following commands should return the appropriate thing (as stated):
+// TODO: The following commands should return the appropriate response:
 //    a. command: http GET localhost:8000/cities
 //       returns: an array of cities
 //    b. command: http GET localhost:8000/cities/0
@@ -9,6 +7,8 @@
 //       returns: a new city with name = Portland and state = Oregon
 //    d. command: http GET localhost:8000/cities/-1
 //       returns: a 400 Bad Request response
+// HELP: reset your cities.json file using this command:
+//    command: echo [{"name":"New York","state":"New York"},{"name":"Seattle","state":"Washington"},{"name":"San Francisco","state":"California"},{"name":"Chicago","state":"Illinois"},{"name":"Tacoma","state":"Washington"},{"name":"Spokane","state":"Washington"}] >> 'cities.json'
 
 'use strict';
 
