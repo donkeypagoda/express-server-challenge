@@ -5,10 +5,10 @@ Your task is to debug this express server. The goal is to expose you to common/p
 
 ## Tasks
 **The following commands should return the appropriate response:**
-1. command: ```http GET localhost:8000/cities``` response with an array of cities
-2. command: ```http GET localhost:8000/cities/0``` response with a single city
-3. command: ```http POST localhost:8000/cities name="Portland" state="Oregon"``` responds with a new city with name = Portland and state = Oregon
-4. **BONUS** - command: ```http GET localhost:8000/cities/-1``` response with a 400 Bad Request response
+1. command: ```http GET localhost:8000/cities``` responds with an array of cities
+2. command: ```http GET localhost:8000/cities/0``` responds with a single city
+3. command: ```http POST localhost:8000/cities name="Portland" state="Oregon"``` responds with a new city
+4. **BONUS** - command: ```http GET localhost:8000/cities/-1``` responds with 400 Bad Request
 
 ## Starting your server
 
